@@ -11,27 +11,36 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <string.h>
+#define BUFFER_SIZE 8
 
+/* 
+char	*return_str(void)
+{
+	static char *str;
+} */
 char	*get_next_line(int fd)
 {
-	char	buffer[1024 + 1];
-	ssize_t bytes;
+	char	*buffer;
+	int		bytes;
 	char	*ptr;
 	int		len;
 	char	*line;
 
-	bytes = read(fd, buffer, 1024);
+	buffer = malloc(BUFFER_SIZE + 1);
+	bytes = read(fd, buffer, BUFFER_SIZE);
 	if (bytes <= 0)
 		return (NULL);
 	buffer[bytes] = '\0';
-	ptr = ft_strchr(buffer, '\n');
+	ptr = strchr(buffer, '\n');
+	printf("%s\n", ptr);
 	if (!ptr)
 		return (NULL);
-	len = (ptr - buffer) + 1;
+	len = 2;
 	line = malloc(len + 1);
 	if (!line)
 		return (NULL);
-	memcpy(line, buffer, len);
+	//ft_memcpy(line, buffer, len);
 	line[len] = '\0';
 	return (line);
 }
@@ -43,6 +52,14 @@ int	main(void)
 
 	fd = open("akjv.txt", O_RDONLY);
 	line = get_next_line(fd);
+	/* 	while(line)
+		{
+			line = get_next_line(fd);
+			if(!line)
+				break ;
+			printf("%s", line);
+			free(line);
+		} */
 	if (line)
 	{
 		printf("%s", line);

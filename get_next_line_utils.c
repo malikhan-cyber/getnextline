@@ -116,3 +116,22 @@ size_t	ft_strlen(const char *c)
 		i++;
 	return (i);
 }
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*cdest;
+	unsigned char	*csrc;
+
+	csrc = (unsigned char *)src;
+	cdest = (unsigned char *)dest;
+	if (dest == 0 && src == 0)
+		return (dest);
+	i = 0;
+	while (i < n)
+	{
+		cdest[i] = csrc[i];
+		i++;
+	}
+	return (dest);
+}

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 15:57:17 by alkhan            #+#    #+#             */
-/*   Updated: 2026/04/05 13:14:51 by marvin           ###   ########.fr       */
+/*   Updated: 2026/04/05 23:46:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*get_next_line(int fd)
 	printf("\nbytes read is: %ld\n",bytes);
 	printf("\nbuffer contains:\n\n%s\n\n", buffer);
 	buffer[bytes] = '\0';
+	
 	while(buffer[i])
 	{
 		if(buffer[i] == '\n')
@@ -87,3 +88,16 @@ int	main(void)
 //	}
 	close(fd);
 }
+/*
+	getnextline()
+		
+	findnewline()
+		looks if buffer contains new line, if not it calls itself and adds another chunk(BUFFER_SIZE)
+		keeps doing this untill atleast one new line is found or end of file is reached. it will return a int which is the position of \n
+		in the buffer 
+	printline()
+		if \n is found, this will retun the line untill, butt before returning it will call checkremainderbuffer \n
+	checkremainderbuffer()
+		if printline is succeeded, it will edit the buffer by removing the line printed,
+		from buffer and keeping the remainder in a static string. 
+*/

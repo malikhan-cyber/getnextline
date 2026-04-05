@@ -1,0 +1,5 @@
+Dit
+is een test,
+dit bestand
+heeft
+meerdere new lines

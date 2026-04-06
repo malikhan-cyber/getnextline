@@ -12,6 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# define BUFFER_SIZE 1024
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>

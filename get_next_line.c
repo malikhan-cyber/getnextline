@@ -6,7 +6,7 @@
 /*   By: alkhan <alkhan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 14:47:07 by alkhan            #+#    #+#             */
-/*   Updated: 2026/04/10 16:39:15 by alkhan           ###   ########.fr       */
+/*   Updated: 2026/04/10 17:47:34 by alkhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,38 @@ char	*free_gnl(char **buffer, char **tempbuffer)
 	*tempbuffer = NULL;
 	return (NULL);
 }
+int	find_newline(char **buffer, char **tempbuffer, int fd)
+{
+	char	*oud;
+	int 	bytes_read;
+	
+	if (!*buffer)
+		*buffer = ft_strdup("");
+	if (!*buffer)
+		return (-1);
+	*tempbuffer = malloc(BUFFER_SIZE + 1);
+	while ((ft_strchr(*buffer, SEARCH_CHAR)) == NULL)
+	{
+		bytes_read = read(fd, *tempbuffer, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (-1);
+		if (bytes_read == 0)
+			return(0);
+		(*tempbuffer)[bytes_read] = '\0';
+		oud = *buffer;
+		*buffer = ft_strjoin(*buffer, *tempbuffer);
+		free(oud);
+		if (!*buffer)
+			return (-1);
+	}
+	return(1);
+}
+char	*update_buffer(void)
+{
+}
+char	*get_line(void)
+{
+}
 
 char	*get_next_line(int fd)
 {
@@ -30,29 +62,10 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			len;
 	char		*rest;
-	char		*oud;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buffer)
-		buffer = ft_strdup("");
-	if (!buffer)
-		return (NULL);
-	tempbuffer = malloc(BUFFER_SIZE + 1);
-	while ((ft_strchr(buffer, SEARCH_CHAR)) == NULL)
-	{
-		bytes_read = read(fd, tempbuffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free_gnl(&buffer, &tempbuffer));
-		if (bytes_read == 0)
-			break ;
-		tempbuffer[bytes_read] = '\0';
-		oud = buffer;
-		buffer = ft_strjoin(buffer, tempbuffer);
-		free(oud);
-		if (!buffer)
-			return (NULL);
-	}
+	find_newline(buffer, tempbuffer, fd);
 	if ((bytes_read == 0) && (ft_strchr(buffer, SEARCH_CHAR) == NULL)
 		&& (buffer[0] == '\0'))
 		return (free_gnl(&buffer, &tempbuffer));

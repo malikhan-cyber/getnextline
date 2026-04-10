@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   get_next_line.h                                     :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: alkhan <marvin@42.fr>                         +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2026/04/04 11:37:34 by alkhan         #+#    #+#                */
-/*   Updated: 2026/04/04 11:45:03 by alkhan         ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alkhan <alkhan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/04 11:37:34 by alkhan            #+#    #+#             */
+/*   Updated: 2026/04/10 15:21:49 by alkhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFER_SIZE 1024
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 500
+# endif
+# ifndef SEARCH_CHAR
+#  define SEARCH_CHAR '\n'
+# endif
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
@@ -22,7 +27,9 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_realloc(void *ptr, size_t size);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
